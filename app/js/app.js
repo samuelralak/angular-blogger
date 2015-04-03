@@ -1,3 +1,3 @@
 'use strict';
 
-var testApp = angular.module('testApp', ['testAppControllers']);
+var mainApp = angular.module('mainApp', ['postModule']);
