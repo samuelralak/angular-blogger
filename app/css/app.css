@@ -28,3 +28,11 @@
   content: "";
   padding: 0;
 }
+
+input.ng-dirty.ng-invalid{
+  border-color:red;
+}
+
+.error-message {
+  color: red;
+}
