@@ -2,6 +2,7 @@
 
 angular.module('mainApp',[
 	'ui.router',
+	'ngResource',
 	'mainApp.posts',
 	'mainApp.admin',
 	'mainApp.controllers'

@@ -2,10 +2,10 @@
 	<div class="col-xs-3">
 		<ul class="nav nav-pills nav-stacked on-click-make-active">
 			<!--Loads admin.viewAll state -->
-			<li><a ui-sref="admin.viewAll">View All Posts</a></li>
+			<li ui-sref-active="active"><a ui-sref="admin.viewAllPosts">View All Posts</a></li>
 
 			<!--Loads admin.postNew state -->
-			<li class="active"><a ui-sref="admin.postNew">Add Post</a></li>
+			<li ui-sref-active="active"><a ui-sref="admin.newPost">Add Post</a></li>
 		</ul>
 	</div>
 
