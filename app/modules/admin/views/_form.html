@@ -2,6 +2,7 @@
 	<label for="title" class="col-sm-2 control-label">Post Title</label>
 	<div class="col-sm-10">
 		<input type="text" name="title" ng-model="post.title" ng-required="true" class="form-control" id="title" placeholder="Title">
+		<span>Permalink:<i>/posts/[id]/{{post.title | permalink}}</i></span>
 		<span class="error-message" ng-show="postForm.title.$dirty && postForm.title.$invalid">
 			Title is mandatory
 		</span>
