@@ -10,7 +10,7 @@ function ListPostsController ($scope, Post, popupService, $state) {
 	$scope.posts = Post.query(); // Obtain all posts from backend
 	$scope.deletePost = function(post) {
 		if (popupService.showPopup('Really delete this?')) {
-			post.$delete(function() {
+			post.$remove(function() {
 				state.go('admin.viewAllPosts', undefined, {
 					reload: true
 				});
@@ -32,7 +32,7 @@ function CreatePostController ($scope, $state, Post) {
 }
 
 function UpdatePostController ($scope, Post, $stateParams, $state) {
-	$scope = Post.get({id: $stateParams.id});
+	$scope.post = Post.get({id: $stateParams.id});
 	$scope.buttonText = "Update";
 	$scope.updatePost = function() {
 		$scope.buttonText = "Updating...";

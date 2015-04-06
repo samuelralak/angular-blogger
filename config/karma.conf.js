@@ -2,6 +2,15 @@ module.exports = function(config){
     config.set({
     basePath : '../',
 
+    preprocessors: {
+        "**/*.html": "ng-html2js" // Preprocessor
+    },
+
+    ngHtml2JsPreprocessor: {
+        stripPrefix: 'app/',
+        moduleName:'templates' //load this module in your tests
+    },
+
     files : [
       'app/lib/angular/angular.js',
       'app/lib/angular/angular-*.js',
@@ -27,7 +36,8 @@ module.exports = function(config){
             'karma-junit-reporter',
             'karma-chrome-launcher',
             'karma-firefox-launcher',
-            'karma-jasmine'
+            'karma-jasmine',
+            'karma-ng-html2js-preprocessor'
             ],
 
     junitReporter : {
