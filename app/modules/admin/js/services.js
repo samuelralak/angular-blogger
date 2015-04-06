@@ -39,6 +39,6 @@ function authService (AUTH_ENDPOINT, LOGOUT_ENDPOINT, $http, $cookieStore) {
 angular.module('mainApp.admin.services').factory('Post', ['$resource', 'API_ENDPOINT', Post]);
 angular.module('mainApp.admin.services').service('popupService', ['$window', popupService]);
 angular.module('mainApp.admin.services').factory('authService', ['AUTH_ENDPOINT', 'LOGOUT_ENDPOINT', '$http', '$cookieStore', authService]);
-angular.module('mainApp.admin.services').value('API_ENDPOINT', 'http://spblogger-sitepointdemos.rhcloud.com/api/posts/:id');
-angular.module('mainApp.admin.services').value('AUTH_ENDPOINT','http://spblogger-sitepointdemos.rhcloud.com/login');
-angular.module('mainApp.admin.services').value('LOGOUT_ENDPOINT','http://spblogger-sitepointdemos.rhcloud.com/logout');
+angular.module('mainApp.admin.services').value('API_ENDPOINT', 'https://angular-blogger-backend.herokuapp.com/api/posts/:id');
+angular.module('mainApp.admin.services').value('AUTH_ENDPOINT','https://angular-blogger-backend.herokuapp.com/login');
+angular.module('mainApp.admin.services').value('LOGOUT_ENDPOINT','https://angular-blogger-backend.herokuapp.com/logout');
