@@ -8,4 +8,11 @@ function permalink () {
 	}
 }
 
+function wordcount () {
+	return function (input) {
+		return input===undefined ? 0 : input.split(/\s/g).length;
+	}
+}
+
 angular.module('mainApp.admin.filters'	).filter('permalink', permalink);
+angular.module('mainApp.admin.filters'	).filter('wordcount', wordcount);

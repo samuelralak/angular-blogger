@@ -3,6 +3,7 @@
 angular.module('mainApp',[
 	'ui.router',
 	'ngResource',
+	'ngAnimate',
 	'mainApp.posts',
 	'mainApp.admin',
 	'mainApp.controllers'
