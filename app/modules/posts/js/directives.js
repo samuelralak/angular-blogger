@@ -7,7 +7,7 @@ function commentsDirective (Post) {
 		restrict: 'AEC',
 		scope: { postInstance: '=' },
 		replace: true,
-		link:function (scope, elem, attrs) {
+		link:['scope', 'elem', 'attrs', function (scope, elem, attrs) {
 			scope.saveComment = function() {
 				var postID = scope.postInstance._id, 
 					savedPostInstance = {};
@@ -18,7 +18,7 @@ function commentsDirective (Post) {
 				scope.comment = {}; // clear the comment
 				savedPostInstance.$update(); //Now update `savedPostInstance` so that the new comment goes to the server.
 			}
-		},
+		}],
 		templateUrl:'modules/posts/views/comments.html'
 	}
 }
