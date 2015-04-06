@@ -8,10 +8,26 @@ angular.module('mainApp.admin', [
 ]);
 
 function adminStateConfig ($stateProvider) {
-	$stateProvider.state('admin', {
+	$stateProvider.state('login', {
+		url: '/login',
+		controller: 'LoginController',
+		resolve: {
+			user: ['authService', '$q', function (authService, $q) {
+				if (authService.user) {
+					return $q.reject({authorized: true});
+				};
+			}]
+		},
+		templateUrl: 'modules/admin/views/login.html'
+	}).state('admin', {
 		url: '/admin',
 		abstract: true,
 		controller: 'AdminController',
+		resolve: {
+			user: ['authService', '$q', function (authService, $q) {
+				return authService.user || $q.reject({unAuthorized: true});
+			}]
+		},
 		templateUrl: 'modules/admin/views/admin-home.html'
 	}).state('admin.newPost', {
 		url: '/posts/new',
@@ -28,4 +44,17 @@ function adminStateConfig ($stateProvider) {
 	});
 }
 
+function listenStateChangeErrorEvent ($rootScope, $state, $cookieStore, authService) {
+	$rootScope.$on('$stateChangeError', function (event, toState, toParams, fromState, fromParams, error) {
+		if (error.unAuthorized) {
+			$state.go("login");
+		} else if (error.authorized) {
+			$state.go('admin.viewAllPosts');
+		};
+	});
+
+	authService.user=$cookieStore.get('user');
+}
+
 angular.module('mainApp.admin').config(['$stateProvider', adminStateConfig]);
+angular.module('mainApp.admin').run(['$rootScope', '$state', '$cookieStore', 'authService', listenStateChangeErrorEvent]);

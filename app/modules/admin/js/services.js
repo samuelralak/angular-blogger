@@ -16,6 +16,29 @@ function popupService ($window) {
 	}
 }
 
+function authService (AUTH_ENDPOINT, LOGOUT_ENDPOINT, $http, $cookieStore) {
+	var auth = {};
+	auth.login = function (username, password) {
+		return $http.post(AUTH_ENDPOINT, {username: username, password: password}).then(function (response, status) {
+			auth.user = response.data;
+			$cookieStore.put('user', auth.user);
+			return auth.user;
+		});
+	}
+
+	auth.logout = function() {
+		return $http.post(LOGOUT_ENDPOINT).then(function (response) {
+			auth.user = undefined;
+			$cookieStore.remove('user');
+		});
+	}
+
+	return auth;
+}
+
 angular.module('mainApp.admin.services').factory('Post', ['$resource', 'API_ENDPOINT', Post]);
 angular.module('mainApp.admin.services').service('popupService', ['$window', popupService]);
+angular.module('mainApp.admin.services').factory('authService', ['AUTH_ENDPOINT', 'LOGOUT_ENDPOINT', '$http', '$cookieStore', authService]);
 angular.module('mainApp.admin.services').value('API_ENDPOINT', 'http://spblogger-sitepointdemos.rhcloud.com/api/posts/:id');
+angular.module('mainApp.admin.services').value('AUTH_ENDPOINT','http://spblogger-sitepointdemos.rhcloud.com/login');
+angular.module('mainApp.admin.services').value('LOGOUT_ENDPOINT','http://spblogger-sitepointdemos.rhcloud.com/logout');

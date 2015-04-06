@@ -2,8 +2,26 @@
 
 angular.module('mainApp.admin.controllers', []);
 
-function AdminController ($scope) {
-	// body...
+function AdminController ($scope, authService, $state, user) {
+	$scope.logout = function() {
+		authService.logout().then(function() {
+			$state.go('login');
+		});
+	}
+}
+
+function LoginController ($scope, authService, $state) {
+	$scope.buttonText = "Login";
+	$scope.login = function() {
+		$scope.buttonText = "Logging in...";
+		authService.login($scope.credentials.username, $scope.credentials.password).then(function (data) {
+			$state.go('admin.viewAllPosts');
+		}, function (err) {
+			$scope.invalidLogin = true;
+		}).finally(function() {
+			$scope.buttonText = "Login";
+		});
+	}
 }
 
 function ListPostsController ($scope, Post, popupService, $state) {
@@ -42,7 +60,8 @@ function UpdatePostController ($scope, Post, $stateParams, $state) {
 	};
 }
 
-angular.module('mainApp.admin.controllers').controller('AdminController', ['$scope', AdminController]);
+angular.module('mainApp.admin.controllers').controller('AdminController', ['$scope', 'authService', '$state', 'user', AdminController]);
+angular.module('mainApp.admin.controllers').controller('LoginController', ['$scope', 'authService', '$state', LoginController]);
 angular.module('mainApp.admin.controllers').controller('ListPostsController', ['$scope', 'Post', 'popupService', '$state', ListPostsController]);
 angular.module('mainApp.admin.controllers').controller('CreatePostController', ['$scope', '$state', 'Post', CreatePostController]);
 angular.module('mainApp.admin.controllers').controller('UpdatePostController', ['$scope', 'Post', '$stateParams', '$state', UpdatePostController]);
